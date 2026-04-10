@@ -360,7 +360,7 @@ void System::writeGNU(int index)
 {
     ofstream out;
     char FileName[100]; 
-    sprintf_s(FileName,"%d.dat",index);
+    sprintf(FileName,"%d.dat",index);
     out.open(FileName);
     //write ant data
     for(int i=0; i<NG2; i++)
@@ -368,7 +368,7 @@ void System::writeGNU(int index)
 	    out<<C[i].col+0.5<<" "<<C[i].row+0.5<<endl; //0.5?
     out.close();
     
-    sprintf_s(FileName,"%d.gnu",index);
+    sprintf(FileName,"%d.gnu",index);
     out.open(FileName);
     out<<"set terminal jpeg"<<endl;
     out<<"unset border"<<endl;
@@ -404,7 +404,7 @@ void System::writeGNU(int index)
 void System::writeOutput() 
 {
     char FileName[100];
-    sprintf_s(FileName,"rand_%d.dat",RANDOMSEED); //modifies the filename 
+    sprintf(FileName,"rand_%d.dat",RANDOMSEED); //modifies the filename 
     //find tesc_av  
     ofstream out; // creates an output file stream object out.
     out.open(FileName); 
