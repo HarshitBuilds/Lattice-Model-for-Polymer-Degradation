@@ -13,7 +13,6 @@ mkdir -p "$s"
 cd "$s"
 sweeps=100000 #number of MC sweeps in simulation 
 mcruns=100 #number of MC runs to average over
-is_top=1 #initialising ants 0 for bottom layer (default), 1 for top layer
 for ((r=1;r<=mcruns;r++)); 
 do
     ../ANT --WALLF "$w" --PWALL "$p" -a "$a" -r "$r" -s "$sweeps" -S 1000000 -n "$n" -k_d "$k_d"
