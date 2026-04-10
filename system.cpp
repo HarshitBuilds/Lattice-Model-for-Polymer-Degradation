@@ -33,7 +33,7 @@ void System::CreateWalls()
     gsl_T = gsl_rng_default;
     gsl_r = gsl_rng_alloc (gsl_T);
     gsl_rng_set(gsl_r,time(NULL));
-    int ntot=NG*(NG+1)*2;//i< NG*(NG+1) if vertical, i>= NG*(NG+1)even if horizontal
+	int ntot=NG*NG + NG*(NG+1);//i<NG2 if vertical (PBC in x), else horizontal
     int* wallindex=new int[ntot]; //to store the index for all the cell boudaries.
     walls=new int[NWALL]; //to store the index for all the walls among all the cell boundaries.
     for(int i=0; i<ntot; i++)
@@ -108,7 +108,7 @@ void System::CreateCells()
 	}
 	else //horizontal wall
 	{
-	  itemp=w-NG*(NG+1);
+	  itemp=w-NG2;
 	  irow=int(itemp/NG);
 	  icol=itemp%NG;
 	  //cout<<"irow="<<irow<<" icol="<<icol<<endl;
@@ -382,16 +382,16 @@ void System::writeGNU(int index)
     int w,irow, icol;
     for(int i=0; i<NWALL; i++)
     {
-	if(walls[i]<NG*(NG+1))//vertical wall
+	if(walls[i]<NG2)//vertical wall
 	{
 	    w=walls[i];
-	    irow=int(w/(NG+1));
-	    icol=w%(NG+1);
+	    irow=int(w/NG);
+	    icol=w%NG;
 	    out<<"set arrow from "<<icol<<","<<irow<<" to "<<icol<<","<<irow+1<<" nohead lc rgb \'black\'"<<endl;
 	}
 	else//horizontal wall
 	{
-	    w=walls[i]-NG*(NG+1);
+	    w=walls[i]-NG2;
 	    irow=int(w/NG);
 	    icol=w%NG;
 	    out<<"set arrow from "<<icol<<","<<irow<<" to "<<icol+1<<","<<irow<<" nohead lc rgb \'black\'"<<endl;

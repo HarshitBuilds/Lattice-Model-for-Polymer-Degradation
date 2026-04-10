@@ -25,7 +25,7 @@ class System
  * 
  * MODEL PARAMETERS (DERIVED)
  * int NG2=total #cells=round off NG*NG
- * int NWALL=total #wall=round off WALLF*(NG+1)*(NG+1)
+ * int NWALL=total #wall=round off WALLF*NG*NG + NG*(NG+1))
  * int NANT=total #ant=round off ANTF*NG2
  */
      
@@ -55,7 +55,7 @@ class System
         //Calculate other parameters
         NG2=NG*NG;
 	NANT=int(round(ANTF*double(NG2)));
-	NWALL=int(round(WALLF*double(NG*(NG+1)*2)));
+  NWALL=int(round(WALLF*double(NG*NG + NG*(NG+1))));
 	cout<<"Input Read\n"<<NG2<<" cells, "<<NWALL<<" walls, "<<NANT<<" ants.\n";
     }
     
