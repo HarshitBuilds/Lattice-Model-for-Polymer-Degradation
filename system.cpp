@@ -204,12 +204,7 @@ void System::Move()
    //  cout<<k<<".jpeg: "<<nant<<" ants in "<<AC.size()<<" clusters\n";
       if((k)%NSAMPLE==0)
 		writeGNU(k);
-      if(nant==0) //when all have escaped 
-      {
-		cout<<"tesc="<<k<<endl;
-		break;
-      }
-
+    
      for(int j=0; j<AC.size(); j++) //moves all the ant cluster in every sweep
       {
 	      nantc=AC.size();
@@ -337,19 +332,6 @@ void System::Move()
 		  }
 		// cout<<"i="<<i<<"\tnewcells.size="<<newcells.size()<<endl;
 	    }
-      }
-
-      //check if all remaining cells are blocked
-      int block=0; //number of blocked ants
-      for(int j=0; j<NG2; j++) 
-      {
-	  if(C[j].isBlock && C[j].isAnt)
-	      block++; 
-      }
-      if(block==nant && nant!=0) //Final condition
-      {
-	  cout<<"ants blocked in remaining cells"<<endl;
-	  break;
       }
   }
   cout<<nant<<" ants remaining"<<endl;
