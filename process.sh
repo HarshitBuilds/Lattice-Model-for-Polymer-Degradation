@@ -15,7 +15,7 @@ sweeps=100000 #number of MC sweeps in simulation
 mcruns=100 #number of MC runs to average over
 for ((r=1;r<=mcruns;r++)); 
 do
-    ../ANT --WALLF "$w" --PWALL "$p" -a "$a" -r "$r" -s "$sweeps" -S 1000000 -n "$n" -k_d "$k_d"
+    ../ANT --WALLF "$w" --PWALL "$p" -a "$a" -r "$r" -s "$sweeps" -S 10 -n "$n" -k_d "$k_d"
     mv "PolymerArea.txt" "PolymerArea_${r}.txt"
 done
 python3 ../Process.py "$mcruns" "$a" "$w" "$p" "$sweeps" "$n" #processing part of the code 
