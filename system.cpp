@@ -344,10 +344,7 @@ void System::writeGNU(int index)
     char FileName[100]; 
     sprintf(FileName,"%d.dat",index);
     out.open(FileName);
-    //write ant data
-    for(int i=0; i<NG2; i++)
-	if(C[i].isAnt)
-	    out<<C[i].col+0.5<<" "<<C[i].row+0.5<<endl; //0.5?
+	// Keep frame data file for compatibility, but do not write ant points.
     out.close();
     
     sprintf(FileName,"%d.gnu",index);
@@ -379,7 +376,8 @@ void System::writeGNU(int index)
 	    out<<"set arrow from "<<icol<<","<<irow<<" to "<<icol+1<<","<<irow<<" nohead lc rgb \'black\'"<<endl;
 	}
     }
-    out<<"p \""<<index<<".dat\" w p ps 3 pt 3 lc rgb \'black\'"<<endl; //??
+	// Draw only walls: use a dummy plot so arrows are rendered without ant markers.
+	out<<"plot 1/0 notitle"<<endl;
     out.close();
 }
 
