@@ -357,23 +357,23 @@ void System::writeGNU(int index)
     out<<"set output \""<<index<<".jpeg\""<<endl;
     out<<"unset tics"<<endl;
     out<<"unset key"<<endl;
-    //write walls
-    int w,irow, icol;
-    for(int i=0; i<NWALL; i++)
+    // Draw walls from wall_index at this frame: for each column, draw all
+    // horizontal walls from bottom up to the current top-most intact wall.
+    int frame = index;
+    if(frame < 0)
+        frame = 0;
+    if(frame > MAXSWEEPS)
+        frame = MAXSWEEPS;
+    for(int col=0; col<NG; col++)
     {
-	if(walls[i]<NG2)//vertical wall
+	int top_cell = wall_index[frame][col];
+	if(top_cell < 0)
+	    continue;
+	int top_row = top_cell/NG;
+	for(int row=0; row<=top_row; row++)
 	{
-	    w=walls[i];
-	    irow=int(w/NG);
-	    icol=w%NG;
-	    out<<"set arrow from "<<icol<<","<<irow<<" to "<<icol<<","<<irow+1<<" nohead lc rgb \'black\'"<<endl;
-	}
-	else//horizontal wall
-	{
-	    w=walls[i]-NG2;
-	    irow=int(w/NG);
-	    icol=w%NG;
-	    out<<"set arrow from "<<icol<<","<<irow<<" to "<<icol+1<<","<<irow<<" nohead lc rgb \'black\'"<<endl;
+	    int y = row + 1; // top boundary of cell "row"
+	    out<<"set arrow from "<<col<<","<<y<<" to "<<col+1<<","<<y<<" nohead lc rgb \'black\'"<<endl;
 	}
     }
 	// Draw only walls: use a dummy plot so arrows are rendered without ant markers.

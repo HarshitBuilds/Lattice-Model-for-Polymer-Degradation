@@ -6,10 +6,10 @@
 set -euo pipefail
 
 # Simulation parameters (aligned with process.sh)
-for n in 100; do            # lattice size
+for n in 10; do            # lattice size
 for w in 1.0; do            # wall fraction
 for p in 0.0; do            # wall crossing probability
-for a in 0.1; do            # ant fraction
+for a in 0.0; do            # ant fraction
 for k_d in 0.001 0.01 0.1; do  # degradation probabilities
 
 	sweeps=100000           # total MC sweeps
@@ -39,7 +39,7 @@ for k_d in 0.001 0.01 0.1; do  # degradation probabilities
 	done
 
 	echo "Building movie..."
-	ffmpeg -y -framerate "$fps" -i %d.jpeg -c:v libx264 -pix_fmt yuv420p "${s}.mp4"
+	ffmpeg -y -framerate "$fps" -pattern_type glob -i "*.jpeg" -c:v libx264 -pix_fmt yuv420p "${s}.mp4"
 
 	echo "Cleaning intermediate frame files..."
 	rm -f *.jpeg *.gnu *.dat
