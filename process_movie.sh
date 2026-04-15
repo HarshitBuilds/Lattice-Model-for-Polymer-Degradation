@@ -12,8 +12,8 @@ for p in 0.0; do            # wall crossing probability
 for a in 0.0; do            # ant fraction
 for k_d in 0.001 0.01 0.1; do  # degradation probabilities
 
-	sweeps=100000           # total MC sweeps
-	frame_sample=1000       # write a frame every frame_sample sweeps (-S)
+	sweeps=1000           # total MC sweeps
+	frame_sample=1       # write a frame every frame_sample sweeps (-S)
 	fps=10                  # output movie frame rate
 
 	s="movie_w_${w}_p_${p}_a_${a}_n_${n}_k_d_${k_d}"
@@ -39,7 +39,7 @@ for k_d in 0.001 0.01 0.1; do  # degradation probabilities
 	done
 
 	echo "Building movie..."
-	ffmpeg -y -framerate "$fps" -pattern_type glob -i "*.jpeg" -c:v libx264 -pix_fmt yuv420p "${s}.mp4"
+	ffmpeg -y -framerate "$fps" -start_number 0 -i %d.jpeg -c:v libx264 -pix_fmt yuv420p "${s}.mp4"
 
 	echo "Cleaning intermediate frame files..."
 	rm -f *.jpeg *.gnu *.dat
